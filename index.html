@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMobile - Cửa hàng điện thoại</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="logo">TechMobile</h1>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Bạn tìm gì...">
+                </div>
+                <div class="header-right">
+                    <button class="login-btn" onclick="openLoginModal()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span id="userDisplay">Đăng nhập</span>
+                    </button>
+
+                    <button class="cart-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="brand-showcase">
+                <div class="brand-list" id="brandList"></div>
+            </div>
+
+            <div class="promo-banners">
+                <div class="promo-banner promo-red">
+                    <div class="promo-content">
+                        <span class="promo-badge">NGẬP TRÀN ƯU ĐÃI</span>
+                        <h2>Lễ Hội Công Nghệ</h2>
+                        <p class="promo-price">Giảm đến 50%</p>
+                        <button class="promo-btn">Xem ngay</button>
+                    </div>
+                </div>
+                <div class="promo-banner promo-blue">
+                    <div class="promo-content">
+                        <span class="promo-badge">TRẢ GÓP 0%</span>
+                        <h2>iPhone 15 Series</h2>
+                        <p class="promo-price">Giảm thêm 3 triệu</p>
+                        <button class="promo-btn">Khám phá</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-tabs">
+                <div class="tabs-container" id="filterTabs"></div>
+            </div>
+
+            <div class="product-section">
+                <h2>📱 Điện thoại nổi bật</h2>
+                <p class="product-count" id="productCount"></p>
+            </div>
+
+            <div class="product-grid" id="productGrid"></div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeLoginModal()">×</button>
+
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <h2>Đăng nhập</h2>
+                <p class="auth-subtitle">Đăng nhập để trải nghiệm mua sắm tốt hơn</p>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginUsername">Tên đăng nhập</label>
+                        <input type="text" id="loginUsername" placeholder="Nhập tên đăng nhập" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Mật khẩu</label>
+                        <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Đăng nhập</button>
+                </form>
+
+                <div class="auth-links">
+                    <a href="#" onclick="showForgotPassword(event)">Quên mật khẩu?</a>
+                    <span>•</span>
+                    <a href="#" onclick="showRegister(event)">Đăng ký tài khoản</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form" id="registerForm" style="display: none;">
+                <h2>Đăng ký tài khoản</h2>
+                <p class="auth-subtitle">Tạo tài khoản mới để mua sắm</p>
+
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="registerUsername">Tên đăng nhập</label>
+                        <input type="text" id="registerUsername" placeholder="Nhập tên đăng nhập" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" placeholder="Nhập email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">Mật khẩu</label>
+                        <input type="password" id="registerPassword" placeholder="Nhập mật khẩu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Xác nhận mật khẩu</label>
+                        <input type="password" id="registerConfirmPassword" placeholder="Nhập lại mật khẩu" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Đăng ký</button>
+                </form>
+
+                <div class="auth-links">
+                    <a href="#" onclick="showLogin(event)">Đã có tài khoản? Đăng nhập</a>
+                </div>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div class="auth-form" id="forgotPasswordForm" style="display: none;">
+                <h2>Quên mật khẩu</h2>
+                <p class="auth-subtitle">Nhập email để nhận link đặt lại mật khẩu</p>
+
+                <form onsubmit="handleForgotPassword(event)">
+                    <div class="form-group">
+                        <label for="forgotEmail">Email</label>
+                        <input type="email" id="forgotEmail" placeholder="Nhập email đã đăng ký" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Gửi link đặt lại</button>
+                </form>
+
+                <div class="auth-links">
+                    <a href="#" onclick="showLogin(event)">Quay lại đăng nhập</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison Toggle Button -->
+    <button class="comparison-toggle" id="compareToggle" style="display: none;">
+        So sánh <span id="compareCount">0</span>
+    </button>
+
+    <!-- Comparison Tray -->
+    <div class="comparison-tray" id="comparisonTray">
+        <div class="comparison-header">
+            <h3>So sánh sản phẩm</h3>
+            <button class="comparison-close" id="comparisonClose">×</button>
+        </div>
+
+        <div class="comparison-content" id="comparisonContent">
+            <p class="empty-compare">Chưa có sản phẩm nào để so sánh.</p>
+        </div>
+    </div>
+
+    <!-- Compare Mini Cart -->
+    <aside class="compare-mini-cart" id="compareMiniCart">
+        <div class="compare-mini-header">
+            <h3>Giỏ so sánh</h3>
+            <span id="compareMiniCount">0</span>
+        </div>
+
+        <div class="compare-mini-list" id="compareMiniList">
+            <p class="compare-empty">Chưa chọn sản phẩm.</p>
+        </div>
+    </aside>
+
+    <!-- Compare Modal -->
+    <div class="compare-modal-overlay" id="compareModal">
+        <div class="compare-modal">
+            <button class="compare-modal-close" onclick="closeCompareModal()">×</button>
+
+            <div class="compare-modal-layout">
+                <aside class="compare-side-nav">
+                    <h4>Mục so sánh</h4>
+                    <a href="#quickCompare">Tổng quát</a>
+                    <a href="#memoryCompare">Cấu hình bộ nhớ</a>
+                    <a href="#displayCameraCompare">Camera, màn hình</a>
+                    <a href="#batteryCompare">Pin, sạc</a>
+                    <a href="#utilityCompare">Tiện ích</a>
+                    <a href="#connectCompare">Kết nối</a>
+                    <a href="#designCompare">Thiết kế, vật liệu</a>
+                </aside>
+
+                <div class="compare-modal-content">
+                    <h2>So sánh điện thoại</h2>
+                    <div id="compareModalContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
