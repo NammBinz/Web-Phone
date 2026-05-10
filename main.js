@@ -469,10 +469,13 @@ function renderCartMiniPanel() {
     const discount = item.msrp > item.price ? item.msrp - item.price : 0;
 
     return `
-          <div class="mini-product-item">
-            <img src="${item.image}" alt="${item.name}">
+          <div class="mini-product-item cart-mini-item">
+            <div class="cart-left-column">
+              <img src="${item.image}" alt="${item.name}">
+              <div class="cart-quantity-badge">x${item.quantity}</div>
+            </div>
 
-            <div class="mini-product-info">
+            <div class="mini-product-info cart-product-info">
               <h4>${item.name}</h4>
 
               <div class="mini-price-row">
@@ -483,8 +486,6 @@ function renderCartMiniPanel() {
               ${discount > 0 ? `
                 <small class="mini-discount">Giảm ${formatPrice(discount)}</small>
               ` : ''}
-
-              <span>Số lượng: ${item.quantity}</span>
             </div>
 
             <button class="mini-remove-btn" onclick="removeCartItem('${item.id}')">×</button>
@@ -494,11 +495,6 @@ function renderCartMiniPanel() {
     </div>
 
     <div class="mini-summary">
-      <div>
-        <span>Tổng số lượng</span>
-        <strong>${totalQuantity}</strong>
-      </div>
-
       <div>
         <span>Tổng tiền</span>
         <strong>${formatPrice(totalPrice)}</strong>
@@ -557,7 +553,6 @@ function renderCompareMiniCart() {
           <div class="mini-product-info">
             <h4>${product.name}</h4>
             <p>${formatPrice(product.price)}</p>
-            <span>${product.brand}</span>
           </div>
 
           <button class="mini-remove-btn" onclick="handleCompareToggle('${product.id}')">×</button>
