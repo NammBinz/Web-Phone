@@ -183,23 +183,64 @@
         </div>
     </div>
 
-    <!-- Compare Mini Cart -->
-    <aside class="compare-mini-cart" id="compareMiniCart">
-        <div class="compare-mini-header">
-            <h3>Giỏ so sánh</h3>
-            <span id="compareMiniCount">0</span>
-        </div>
-
-        <div class="compare-mini-list" id="compareMiniList">
-            <p class="compare-empty">Chưa chọn sản phẩm.</p>
-        </div>
-    </aside>
-
     <!-- Compare Modal -->
     <div class="compare-modal-overlay" id="compareModal">
         <div class="compare-modal">
             <button class="compare-modal-close" onclick="closeCompareModal()">×</button>
 
+            <div class="compare-modal-layout">
+                <aside class="compare-side-nav">
+                    <h4>Mục so sánh</h4>
+                    <a href="#quickCompare">Tổng quát</a>
+                    <a href="#memoryCompare">Cấu hình bộ nhớ</a>
+                    <a href="#displayCameraCompare">Camera, màn hình</a>
+                    <a href="#batteryCompare">Pin, sạc</a>
+                    <a href="#utilityCompare">Tiện ích</a>
+                    <a href="#connectCompare">Kết nối</a>
+                    <a href="#designCompare">Thiết kế, vật liệu</a>
+                </aside>
+
+                <div class="compare-modal-content">
+                    <h2>So sánh điện thoại</h2>
+                    <div id="compareModalContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Right Floating Panels -->
+    <aside class="right-floating-panels">
+        <!-- Mini Cart -->
+        <div class="mini-panel cart-mini-panel" id="cartMiniPanel">
+            <div class="mini-panel-header">
+                <h3>Giỏ hàng</h3>
+                <span id="cartMiniCount">0</span>
+            </div>
+
+            <div class="mini-panel-list" id="cartMiniList">
+                <p class="mini-empty">Giỏ hàng đang trống.</p>
+            </div>
+        </div>
+
+        <!-- Compare Mini Cart -->
+        <div class="mini-panel compare-mini-panel" id="compareMiniCart">
+            <div class="mini-panel-header">
+                <h3>Giỏ so sánh</h3>
+                <span id="compareMiniCount">0</span>
+            </div>
+
+            <div class="mini-panel-list" id="compareMiniList">
+                <p class="mini-empty">Chưa chọn sản phẩm.</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Compare Modal -->
+    <div class="compare-modal-overlay" id="compareModal">
+        <div class="compare-modal" id="compareModalBox">
             <div class="compare-modal-layout">
                 <aside class="compare-side-nav">
                     <h4>Mục so sánh</h4>

@@ -251,13 +251,32 @@ const tabs = [
 let state = {
   activeTab: 'featured',
   searchQuery: '',
-  cart: new Set(),
+  cart: {},
   comparingProducts: []
 };
 
 // ==================== UTILITY FUNCTIONS ====================
 function formatPrice(price) {
   return price.toLocaleString('vi-VN') + '₫';
+}
+
+function showToast(message, type = 'success') {
+  const toastContainer = document.getElementById('toastContainer');
+  if (!toastContainer) return;
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+
+  toastContainer.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('hide');
+  }, 2500);
+
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
 }
 
 function filterProducts() {
@@ -393,19 +412,127 @@ function generateStars(rating) {
   return stars;
 }
 
+function getCartTotalQuantity() {
+  return Object.values(state.cart).reduce((sum, quantity) => sum + quantity, 0);
+}
+
 function updateCartCount() {
   const cartCountElement = document.getElementById('cartCount');
+  const cartMiniCount = document.getElementById('cartMiniCount');
+
+  const totalQuantity = getCartTotalQuantity();
+
   if (cartCountElement) {
-    cartCountElement.textContent = state.cart.size;
+    cartCountElement.textContent = totalQuantity;
+  }
+
+  if (cartMiniCount) {
+    cartMiniCount.textContent = totalQuantity;
   }
 }
 
+function renderCartMiniPanel() {
+  const cartMiniList = document.getElementById('cartMiniList');
+  const cartMiniPanel = document.getElementById('cartMiniPanel');
+
+  if (!cartMiniList || !cartMiniPanel) return;
+
+  const cartItems = Object.entries(state.cart)
+    .map(([id, quantity]) => {
+      const product = products.find(p => p.id === id);
+      return product ? { ...product, quantity } : null;
+    })
+    .filter(Boolean);
+
+  if (cartItems.length === 0) {
+    cartMiniPanel.classList.remove('active');
+    cartMiniList.innerHTML = `<p class="mini-empty">Giỏ hàng đang trống.</p>`;
+    return;
+  }
+
+  cartMiniPanel.classList.add('active');
+
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  const totalPrice = cartItems.reduce((sum, item) => {
+    return sum + item.price * item.quantity;
+  }, 0);
+
+  const totalDiscount = cartItems.reduce((sum, item) => {
+    const discount = item.msrp > item.price ? item.msrp - item.price : 0;
+    return sum + discount * item.quantity;
+  }, 0);
+
+  cartMiniList.innerHTML = `
+    <div class="mini-product-scroll">
+      ${cartItems.map(item => {
+    const discount = item.msrp > item.price ? item.msrp - item.price : 0;
+
+    return `
+          <div class="mini-product-item">
+            <img src="${item.image}" alt="${item.name}">
+
+            <div class="mini-product-info">
+              <h4>${item.name}</h4>
+
+              <div class="mini-price-row">
+                <p>${formatPrice(item.price)}</p>
+                ${discount > 0 ? `<span class="mini-old-price">${formatPrice(item.msrp)}</span>` : ''}
+              </div>
+
+              ${discount > 0 ? `
+                <small class="mini-discount">Giảm ${formatPrice(discount)}</small>
+              ` : ''}
+
+              <span>Số lượng: ${item.quantity}</span>
+            </div>
+
+            <button class="mini-remove-btn" onclick="removeCartItem('${item.id}')">×</button>
+          </div>
+        `;
+  }).join('')}
+    </div>
+
+    <div class="mini-summary">
+      <div>
+        <span>Tổng số lượng</span>
+        <strong>${totalQuantity}</strong>
+      </div>
+
+      <div>
+        <span>Tổng tiền</span>
+        <strong>${formatPrice(totalPrice)}</strong>
+      </div>
+
+      ${totalDiscount > 0 ? `
+        <div class="mini-saving">
+          <span>Tiết kiệm</span>
+          <strong>${formatPrice(totalDiscount)}</strong>
+        </div>
+      ` : ''}
+    </div>
+
+    <button class="mini-action-btn">
+      Xem giỏ hàng
+    </button>
+  `;
+}
+
+function removeCartItem(productId) {
+  delete state.cart[productId];
+
+  updateCartCount();
+  renderCartMiniPanel();
+
+  showToast('Đã xóa sản phẩm khỏi giỏ hàng', 'info');
+}
+
 function renderCompareMiniCart() {
-  const miniCart = document.getElementById('compareMiniCart');
   const miniList = document.getElementById('compareMiniList');
   const miniCount = document.getElementById('compareMiniCount');
+  const compareMiniCart = document.getElementById('compareMiniCart');
 
-  if (!miniCart || !miniList || !miniCount) return;
+  if (!miniList || !miniCount || !compareMiniCart) return;
 
   const selectedProducts = state.comparingProducts
     .map(id => products.find(product => product.id === id))
@@ -414,44 +541,38 @@ function renderCompareMiniCart() {
   miniCount.textContent = selectedProducts.length;
 
   if (selectedProducts.length === 0) {
-    miniCart.classList.remove('active');
-    miniList.innerHTML = `<p class="compare-empty">Chưa chọn sản phẩm.</p>`;
+    compareMiniCart.classList.remove('active');
+    miniList.innerHTML = `<p class="mini-empty">Chưa chọn sản phẩm.</p>`;
     return;
   }
 
-  miniCart.classList.add('active');
+  compareMiniCart.classList.add('active');
 
   miniList.innerHTML = `
-    ${selectedProducts.map(product => `
-      <div class="compare-mini-item">
-        <button class="compare-mini-remove" onclick="handleCompareToggle('${product.id}')">×</button>
-        <img src="${product.image}" alt="${product.name}">
-        <div class="compare-mini-info">
-          <h4>${product.name}</h4>
-          <p>${formatPrice(product.price)}</p>
+    <div class="mini-product-scroll">
+      ${selectedProducts.map(product => `
+        <div class="mini-product-item">
+          <img src="${product.image}" alt="${product.name}">
+
+          <div class="mini-product-info">
+            <h4>${product.name}</h4>
+            <p>${formatPrice(product.price)}</p>
+            <span>${product.brand}</span>
+          </div>
+
+          <button class="mini-remove-btn" onclick="handleCompareToggle('${product.id}')">×</button>
         </div>
-      </div>
-    `).join('')}
+      `).join('')}
+    </div>
 
     ${selectedProducts.length >= 2 ? `
-      <button class="open-compare-btn" onclick="openCompareModal()">
+      <button class="mini-action-btn compare-action" onclick="openCompareModal()">
         So sánh ${selectedProducts.length} sản phẩm
       </button>
     ` : `
-      <p class="compare-note">Chọn ít nhất 2 sản phẩm để so sánh.</p>
+      <p class="mini-note">Chọn thêm 1 sản phẩm nữa để so sánh.</p>
     `}
   `;
-}
-
-function openCompareModal() {
-  if (state.comparingProducts.length < 2) {
-    alert('Bạn cần chọn ít nhất 2 sản phẩm để so sánh!');
-    return;
-  }
-
-  renderCompareModal();
-  document.getElementById('compareModal').classList.add('active');
-  document.body.classList.add('modal-open');
 }
 
 function closeCompareModal() {
@@ -468,7 +589,7 @@ function renderCompareModal() {
     .filter(Boolean);
 
   compareModalContent.innerHTML = `
-    <section class="compare-product-header">
+    <section class="compare-product-header compare-count-${selectedProducts.length}">
       ${selectedProducts.map(product => `
         <div class="compare-product-main">
           <img src="${product.image}" alt="${product.name}">
@@ -482,75 +603,75 @@ function renderCompareModal() {
     <section class="compare-section" id="quickCompare">
       <h3>So sánh tổng quát nhanh</h3>
       ${renderCompareTable(selectedProducts, [
-        ['Màn hình', p => getSpecs(p).screen],
-        ['Chip', p => getSpecs(p).chip],
-        ['RAM', p => getSpecs(p).ram],
-        ['ROM', p => getSpecs(p).rom],
-        ['Camera', p => getSpecs(p).camera],
-        ['Pin', p => getSpecs(p).battery],
-        ['Sạc', p => getSpecs(p).charge]
-      ])}
+    ['Màn hình', p => getSpecs(p).screen],
+    ['Chip', p => getSpecs(p).chip],
+    ['RAM', p => getSpecs(p).ram],
+    ['ROM', p => getSpecs(p).rom],
+    ['Camera', p => getSpecs(p).camera],
+    ['Pin', p => getSpecs(p).battery],
+    ['Sạc', p => getSpecs(p).charge]
+  ])}
     </section>
 
     <section class="compare-section" id="memoryCompare">
       <h3>Cấu hình bộ nhớ</h3>
       ${renderCompareTable(selectedProducts, [
-        ['RAM', p => getSpecs(p).memory.ram],
-        ['Bộ nhớ trong', p => getSpecs(p).memory.storage],
-        ['Thẻ nhớ', p => getSpecs(p).memory.card]
-      ])}
+    ['RAM', p => getSpecs(p).memory.ram],
+    ['Bộ nhớ trong', p => getSpecs(p).memory.storage],
+    ['Thẻ nhớ', p => getSpecs(p).memory.card]
+  ])}
     </section>
 
     <section class="compare-section" id="displayCameraCompare">
       <h3>Camera, màn hình</h3>
       ${renderCompareTable(selectedProducts, [
-        ['Màn hình', p => getSpecs(p).displayCamera.display],
-        ['Camera sau', p => getSpecs(p).displayCamera.rearCamera],
-        ['Camera trước', p => getSpecs(p).displayCamera.frontCamera]
-      ])}
+    ['Màn hình', p => getSpecs(p).displayCamera.display],
+    ['Camera sau', p => getSpecs(p).displayCamera.rearCamera],
+    ['Camera trước', p => getSpecs(p).displayCamera.frontCamera]
+  ])}
     </section>
 
     <section class="compare-section" id="batteryCompare">
       <h3>Pin, sạc</h3>
       ${renderCompareTable(selectedProducts, [
-        ['Dung lượng pin', p => getSpecs(p).batteryCharge.battery],
-        ['Sạc nhanh', p => getSpecs(p).batteryCharge.charge],
-        ['Sạc không dây', p => getSpecs(p).batteryCharge.wireless]
-      ])}
+    ['Dung lượng pin', p => getSpecs(p).batteryCharge.battery],
+    ['Sạc nhanh', p => getSpecs(p).batteryCharge.charge],
+    ['Sạc không dây', p => getSpecs(p).batteryCharge.wireless]
+  ])}
     </section>
 
     <section class="compare-section" id="utilityCompare">
       <h3>Tiện ích</h3>
       ${renderCompareTable(selectedProducts, [
-        ['Bảo mật', p => getSpecs(p).utilities.security],
-        ['Kháng nước', p => getSpecs(p).utilities.waterResistant],
-        ['Tính năng đặc biệt', p => getSpecs(p).utilities.special]
-      ])}
+    ['Bảo mật', p => getSpecs(p).utilities.security],
+    ['Kháng nước', p => getSpecs(p).utilities.waterResistant],
+    ['Tính năng đặc biệt', p => getSpecs(p).utilities.special]
+  ])}
     </section>
 
     <section class="compare-section" id="connectCompare">
       <h3>Kết nối</h3>
       ${renderCompareTable(selectedProducts, [
-        ['SIM', p => getSpecs(p).connection.sim],
-        ['Mạng di động', p => getSpecs(p).connection.network],
-        ['Cổng sạc', p => getSpecs(p).connection.port]
-      ])}
+    ['SIM', p => getSpecs(p).connection.sim],
+    ['Mạng di động', p => getSpecs(p).connection.network],
+    ['Cổng sạc', p => getSpecs(p).connection.port]
+  ])}
     </section>
 
     <section class="compare-section" id="designCompare">
       <h3>Thiết kế, vật liệu</h3>
       ${renderCompareTable(selectedProducts, [
-        ['Vật liệu', p => getSpecs(p).design.material],
-        ['Trọng lượng', p => getSpecs(p).design.weight],
-        ['Màu sắc', p => getSpecs(p).design.color]
-      ])}
+    ['Vật liệu', p => getSpecs(p).design.material],
+    ['Trọng lượng', p => getSpecs(p).design.weight],
+    ['Màu sắc', p => getSpecs(p).design.color]
+  ])}
     </section>
   `;
 }
 
 function renderCompareTable(selectedProducts, rows) {
   return `
-    <div class="compare-table">
+    <div class="compare-table compare-count-${selectedProducts.length}">
       <div class="compare-row compare-row-head">
         <div class="compare-cell compare-label">Thông số</div>
         ${selectedProducts.map(product => `
@@ -568,6 +689,30 @@ function renderCompareTable(selectedProducts, rows) {
       `).join('')}
     </div>
   `;
+}
+
+function openCompareModal() {
+  if (state.comparingProducts.length < 2) {
+    showToast('Bạn cần chọn ít nhất 2 sản phẩm để so sánh', 'warning');
+    return;
+  }
+
+  renderCompareModal();
+  setupCompareSmoothScroll();
+
+  const compareModal = document.getElementById('compareModal');
+  if (compareModal) {
+    compareModal.classList.add('active');
+    document.body.classList.add('modal-open');
+  }
+}
+
+function closeCompareModal() {
+  const compareModal = document.getElementById('compareModal');
+  if (compareModal) {
+    compareModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+  }
 }
 
 function renderComparisonContent() {
@@ -619,15 +764,20 @@ function handleTabChange(tabId) {
 }
 
 function handleCompareToggle(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+
   if (state.comparingProducts.includes(productId)) {
     state.comparingProducts = state.comparingProducts.filter(id => id !== productId);
+    showToast(`Đã bỏ ${product.name} khỏi so sánh`, 'info');
   } else {
     if (state.comparingProducts.length >= 3) {
-      alert('Bạn chỉ có thể so sánh tối đa 3 sản phẩm!');
+      showToast('Bạn chỉ có thể so sánh tối đa 3 sản phẩm', 'warning');
       return;
     }
 
     state.comparingProducts.push(productId);
+    showToast(`Đã thêm ${product.name} vào giỏ so sánh`, 'success');
   }
 
   renderProducts();
@@ -643,16 +793,19 @@ function handleProductClick(productId) {
 }
 
 function handleBuyClick(productId) {
-  console.log('Buy clicked:', productId);
   const product = products.find(p => p.id === productId);
+  if (!product) return;
 
-  if (product) {
-    state.cart.add(productId);
-    updateCartCount();
-
-    // Show success message
-    alert(`✅ Đã thêm "${product.name}" vào giỏ hàng!\n\nGiá: ${formatPrice(product.price)}`);
+  if (!state.cart[productId]) {
+    state.cart[productId] = 1;
+  } else {
+    state.cart[productId]++;
   }
+
+  updateCartCount();
+  renderCartMiniPanel();
+
+  showToast(`Đã thêm ${product.name} vào giỏ hàng`, 'success');
 }
 
 function handleSearch(event) {
@@ -685,21 +838,31 @@ function showCart() {
 // ==================== INITIALIZATION ====================
 function init() {
   console.log('🚀 TechMobile initialized!');
-  
+
   renderBrands();
   renderTabs();
   renderProducts();
   updateCartCount();
+  renderCartMiniPanel();
   renderCompareMiniCart();
-  
+
   const searchInput = document.getElementById('searchInput');
   if (searchInput) {
     searchInput.addEventListener('input', handleSearch);
   }
-  
+
   const cartBtn = document.querySelector('.cart-btn');
   if (cartBtn) {
     cartBtn.addEventListener('click', showCart);
+  }
+
+  const compareModal = document.getElementById('compareModal');
+  if (compareModal) {
+    compareModal.addEventListener('click', function (event) {
+      if (event.target === compareModal) {
+        closeCompareModal();
+      }
+    });
   }
 
   console.log('✅ All event listeners attached');
@@ -721,6 +884,9 @@ window.openCompareModal = openCompareModal;
 window.closeCompareModal = closeCompareModal;
 window.handleProductClick = handleProductClick;
 window.handleBuyClick = handleBuyClick;
+window.removeCartItem = removeCartItem;
+window.openCompareModal = openCompareModal;
+window.closeCompareModal = closeCompareModal;
 
 // ========= Đăng nhập ================== 
 // ==================== AUTH SYSTEM ====================
@@ -936,3 +1102,28 @@ document.addEventListener('DOMContentLoaded', () => {
   window.handleRegister = handleRegister;
   window.handleLogout = handleLogout;
 });
+
+function setupCompareSmoothScroll() {
+  const sideNavLinks = document.querySelectorAll('.compare-side-nav a');
+  const modalContent = document.querySelector('.compare-modal-content');
+
+  if (!modalContent) return;
+
+  sideNavLinks.forEach(link => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      const targetId = this.getAttribute('href');
+      const targetSection = document.querySelector(targetId);
+
+      if (!targetSection) return;
+
+      const topPosition = targetSection.offsetTop - 16;
+
+      modalContent.scrollTo({
+        top: topPosition,
+        behavior: 'smooth'
+      });
+    });
+  });
+}
