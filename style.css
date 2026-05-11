@@ -178,8 +178,8 @@ body {
 }
 
 .cart-quantity-badge {
-    width: 42px;
-    height: 24px;
+    width: 30px;
+    height: 14px;
     border-radius: 0.55rem;
     background: #FEE2E2;
     color: #D70018;
