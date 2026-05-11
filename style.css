@@ -139,21 +139,6 @@ body {
     justify-content: center;
 }
 
-.cart-quantity-badge {
-    width: 34px;
-    height: 34px;
-    border-radius: 0.7rem;
-    background: #FEE2E2;
-    color: #D70018;
-    font-size: 0.85rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 1px solid rgba(215, 0, 24, 0.18);
-}
-
 .cart-mini-item {
     display: grid !important;
     grid-template-columns: 52px 1fr;
@@ -179,10 +164,10 @@ body {
 
 .cart-quantity-badge {
     width: 30px;
-    height: 14px;
+    height: 16px;
     border-radius: 0.55rem;
-    background: #FEE2E2;
-    color: #D70018;
+    background: #0000;
+    color: #666666;
     font-size: 0.78rem;
     font-weight: 800;
     display: flex;
