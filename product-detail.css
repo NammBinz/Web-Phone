@@ -273,3 +273,226 @@
         font-size: 1.6rem;
     }
 }
+
+/* ==================== DETAIL SPECS SECTION ==================== */
+
+.detail-specs-section {
+    margin-top: 1.5rem;
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.detail-specs-section h2 {
+    color: #D70018;
+    margin-bottom: 1rem;
+}
+
+.detail-specs-table {
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 0.9rem;
+    overflow: hidden;
+}
+
+.spec-group-title {
+    background: #FDD835;
+    color: #333;
+    font-weight: 800;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.spec-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.spec-row:last-child {
+    border-bottom: none;
+}
+
+.spec-row span {
+    background: #FFF7ED;
+    padding: 0.85rem 1rem;
+    font-weight: 700;
+    color: #555;
+    border-right: 1px solid rgba(0,0,0,0.08);
+}
+
+.spec-row strong {
+    padding: 0.85rem 1rem;
+    color: #333;
+    font-weight: 600;
+}
+
+@media (max-width: 700px) {
+    .spec-row {
+        grid-template-columns: 1fr;
+    }
+
+    .spec-row span {
+        border-right: none;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+}
+
+/* ==================== RELATED PRODUCTS ==================== */
+
+.related-products-section {
+    margin-top: 1.5rem;
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.related-header {
+    margin-bottom: 1rem;
+}
+
+.related-header h2 {
+    color: #D70018;
+    margin-bottom: 0.25rem;
+}
+
+.related-header p {
+    color: #6B6B6B;
+    font-size: 0.9rem;
+}
+
+.related-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.9rem;
+}
+
+.related-product-card {
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 0.9rem;
+    overflow: hidden;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.related-product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border-color: rgba(215,0,24,0.25);
+}
+
+.related-image-box {
+    position: relative;
+    aspect-ratio: 1;
+    padding: 1rem;
+    background: #fff;
+}
+
+.related-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.related-compare-btn {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #FFF7ED;
+    border: 2px solid #F97316;
+    color: #D70018;
+    font-size: 1.1rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.related-compare-btn.active {
+    background: #D70018;
+    color: white;
+    border-color: #D70018;
+}
+
+.related-discount-badge {
+    position: absolute;
+    top: 0.55rem;
+    left: 0.55rem;
+    background: #D70018;
+    color: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.related-info {
+    padding: 0.8rem;
+}
+
+.related-info h3 {
+    font-size: 0.9rem;
+    line-height: 1.35;
+    min-height: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.related-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.45rem;
+}
+
+.related-price-row strong {
+    color: #D70018;
+    font-size: 1rem;
+}
+
+.related-price-row span {
+    color: #888;
+    font-size: 0.75rem;
+    text-decoration: line-through;
+}
+
+.related-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.65rem;
+}
+
+.related-rating small {
+    color: #6B6B6B;
+}
+
+.related-buy-btn {
+    width: 100%;
+    border: none;
+    border-radius: 0.7rem;
+    background: #FDD835;
+    color: #333;
+    padding: 0.6rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.related-buy-btn:hover {
+    background: #FBC02D;
+}
+
+@media (max-width: 1000px) {
+    .related-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .related-products-grid {
+        grid-template-columns: 1fr;
+    }
+}
