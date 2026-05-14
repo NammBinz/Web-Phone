@@ -31,12 +31,12 @@
     background: white;
     border-radius: 1rem;
     padding: 1.5rem;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .detail-image-box {
     background: #fff;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 1rem;
     padding: 2rem;
     display: flex;
@@ -60,7 +60,7 @@
     display: inline-block;
     background: #FFF7ED;
     color: #D70018;
-    border: 1px solid rgba(215,0,24,0.18);
+    border: 1px solid rgba(215, 0, 24, 0.18);
     padding: 0.25rem 0.7rem;
     border-radius: 999px;
     font-size: 0.85rem;
@@ -124,7 +124,7 @@
 .option-btn {
     padding: 0.65rem 1rem;
     border-radius: 0.7rem;
-    border: 1px solid rgba(0,0,0,0.12);
+    border: 1px solid rgba(0, 0, 0, 0.12);
     background: white;
     cursor: pointer;
     font-weight: 700;
@@ -139,7 +139,7 @@
 
 .promotion-box {
     background: #FEF2F2;
-    border: 1px solid rgba(215,0,24,0.16);
+    border: 1px solid rgba(215, 0, 24, 0.16);
     border-radius: 0.9rem;
     padding: 1rem;
     margin-bottom: 1.2rem;
@@ -196,7 +196,7 @@
     background: white;
     border-radius: 1rem;
     padding: 1.5rem;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .quick-specs-section h2 {
@@ -214,7 +214,7 @@
     background: #F9FAFB;
     border-radius: 0.8rem;
     padding: 1rem;
-    border: 1px solid rgba(0,0,0,0.06);
+    border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .quick-specs-grid strong {
@@ -281,7 +281,7 @@
     background: white;
     border-radius: 1rem;
     padding: 1.5rem;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .detail-specs-section h2 {
@@ -290,7 +290,7 @@
 }
 
 .detail-specs-table {
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 0.9rem;
     overflow: hidden;
 }
@@ -300,13 +300,13 @@
     color: #333;
     font-weight: 800;
     padding: 0.8rem 1rem;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .spec-row {
     display: grid;
     grid-template-columns: 240px 1fr;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .spec-row:last-child {
@@ -318,7 +318,7 @@
     padding: 0.85rem 1rem;
     font-weight: 700;
     color: #555;
-    border-right: 1px solid rgba(0,0,0,0.08);
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .spec-row strong {
@@ -334,7 +334,7 @@
 
     .spec-row span {
         border-right: none;
-        border-bottom: 1px solid rgba(0,0,0,0.06);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     }
 }
 
@@ -345,7 +345,7 @@
     background: white;
     border-radius: 1rem;
     padding: 1.5rem;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .related-header {
@@ -369,7 +369,7 @@
 }
 
 .related-product-card {
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 0.9rem;
     overflow: hidden;
     background: #fff;
@@ -379,8 +379,8 @@
 
 .related-product-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    border-color: rgba(215,0,24,0.25);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: rgba(215, 0, 24, 0.25);
 }
 
 .related-image-box {

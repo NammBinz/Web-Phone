@@ -9,6 +9,7 @@ const products = [
     rating: 5,
     reviews: 1247
   },
+  
   {
     id: '2',
     name: 'Samsung Galaxy S24 Ultra 256GB',

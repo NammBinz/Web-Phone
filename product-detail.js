@@ -34,7 +34,8 @@ function showToast(message, type = 'success') {
 
 function handleBuyClick(productId) {
   const product = products.find(p => p.id === productId);
-  if (!product) return;
+  if (!product)
+     return;
 
   if (!detailState.cart[productId]) {
     detailState.cart[productId] = 1;

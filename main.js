@@ -76,6 +76,7 @@ function filterProducts() {
       'vivo': 'Vivo',
       'realme': 'Realme'
     };
+    
     filtered = filtered.filter(p => p.brand === brandMap[state.activeTab]);
   }
 
