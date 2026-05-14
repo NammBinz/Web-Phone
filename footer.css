@@ -1,0 +1,276 @@
+/* === SITE FOOTER === */
+
+/* Main */
+.site-footer {
+    margin-top: 40px;
+}
+
+.footer-main {
+    background-color: #e2e2e2;
+    padding: 40px 0px 32px;
+}
+
+/* Grid 4 cột (cho desktop) */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 32px;
+}
+
+/* Section headings */
+.footer-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+/* Cột 1 */
+
+/* Tổng đài hỗ trợ miễn phí */
+.support-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.support-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.support-label {
+    color: #515151;
+}
+
+.support-phone {
+    font-size: 16px;
+    font-weight: 800;
+    color: #d01414;
+}
+
+.support-hours {
+    font-size: 14px;
+    color: #707070;
+}
+
+/* Kết nối với TechMobile */
+.footer-section--social {
+    margin-top: 0;
+}
+
+.social-list {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.social-link {
+    padding: 16px 22px;
+    cursor: pointer;
+    
+}
+
+.social-icon {
+    width: 0px;
+    height: 0px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icon img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+/* Cột 2 - Cột 3 */
+
+/* Cho desktop */
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-links li a {
+    font-size: 14px;
+    color: #333333;
+    text-decoration: none;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.footer-links li a:hover {
+    color: #d70000;
+    text-decoration: underline;
+}
+
+/* Accordion trigger (cho mobile) */
+.footer-accordion-trigger {
+    display: none;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #c8c8c8;
+    padding: 14px 0;
+    text-align: left;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.footer-accordion-trigger .footer-section-title {
+    margin-bottom: 0;
+}
+
+.accordion-chevron {
+    font-size: 18px;
+    font-weight: 700;
+    color: #555555;
+    transition: transform 0.25s ease;
+    transform: rotate(90deg);
+}
+
+/* Cột 4 */
+
+/* Phương thức thanh toán */
+.payment-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.payment-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+}
+
+.payment-badge img {
+    object-fit: contain;
+}
+
+/* Chứng nhận */
+.trust-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.trust-badge {
+    margin-top: 16px;
+    height: 0px;
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Copyright */
+.footer-bottom {
+    background-color: #ffffff;
+    padding: 18px;
+}
+
+.copyright-text {
+    font-size: 12px;
+    color: #888888;
+    line-height: 1.7;
+    text-align: center;
+    max-width: 870px;
+    margin: 0 auto;
+}
+
+
+/* === RESPONSIVE === */
+
+/* Dưới 1024px */
+@media (max-width: 1024px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 32px;
+    }
+}
+
+/* Dưới 767px (mobile) */
+@media (max-width: 767px) {
+    .footer-main {
+        padding: 24px 0 16px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .footer-col--support {
+        padding-bottom: 24px;
+        border-bottom: 1px solid #c8c8c8;
+        margin-bottom: 4px;
+    }
+
+    .footer-col--trust {
+        padding-top: 20px;
+        border-top: 1px solid #c8c8c8;
+    }
+
+    /* Hiện accordion trigger trên mobile */
+    .footer-accordion-trigger {
+        display: flex;
+    }
+
+    /* Tắt static heading h3 ở ngoài trên mobile */
+    .footer-accordion .footer-section-title--static {
+        display: none;
+    }
+
+    /* Mặc định ẩn content của accordion */
+    .footer-accordion-content {
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.25s ease;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    /* Cho trạng thái mở của accordion */
+    .footer-accordion-content.is-open {
+        max-height: 600px;
+        opacity: 1;
+        padding-top: 14px;
+        padding-bottom: 12px;
+    }
+
+    .footer-col--about, .footer-col--policy {
+        border-bottom: 1px solid #c8c8c8;
+    }
+
+    .social-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .social-link {
+        padding: 16px 32px;
+    }
+
+    .payment-grid {
+        gap: 6px;
+    }
+
+    .trust-list {
+        padding-bottom: 32px;
+    }
+}
