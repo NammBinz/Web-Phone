@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechMobile - Cửa hàng điện thoại</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="footer.css">
 </head>
 
 <body>
@@ -89,21 +90,17 @@
             <div class="auth-form" id="loginForm">
                 <h2>Đăng nhập</h2>
                 <p class="auth-subtitle">Đăng nhập để trải nghiệm mua sắm tốt hơn</p>
-
                 <form onsubmit="handleLogin(event)">
                     <div class="form-group">
                         <label for="loginUsername">Tên đăng nhập</label>
                         <input type="text" id="loginUsername" placeholder="Nhập tên đăng nhập" required>
                     </div>
-
                     <div class="form-group">
                         <label for="loginPassword">Mật khẩu</label>
                         <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" required>
                     </div>
-
                     <button type="submit" class="btn-primary">Đăng nhập</button>
                 </form>
-
                 <div class="auth-links">
                     <a href="#" onclick="showForgotPassword(event)">Quên mật khẩu?</a>
                     <span>•</span>
@@ -111,54 +108,43 @@
                 </div>
             </div>
 
-            <!-- Register Form -->
             <div class="auth-form" id="registerForm" style="display: none;">
                 <h2>Đăng ký tài khoản</h2>
                 <p class="auth-subtitle">Tạo tài khoản mới để mua sắm</p>
-
                 <form onsubmit="handleRegister(event)">
                     <div class="form-group">
                         <label for="registerUsername">Tên đăng nhập</label>
                         <input type="text" id="registerUsername" placeholder="Nhập tên đăng nhập" required>
                     </div>
-
                     <div class="form-group">
                         <label for="registerEmail">Email</label>
                         <input type="email" id="registerEmail" placeholder="Nhập email" required>
                     </div>
-
                     <div class="form-group">
                         <label for="registerPassword">Mật khẩu</label>
                         <input type="password" id="registerPassword" placeholder="Nhập mật khẩu" required>
                     </div>
-
                     <div class="form-group">
                         <label for="registerConfirmPassword">Xác nhận mật khẩu</label>
                         <input type="password" id="registerConfirmPassword" placeholder="Nhập lại mật khẩu" required>
                     </div>
-
                     <button type="submit" class="btn-primary">Đăng ký</button>
                 </form>
-
                 <div class="auth-links">
                     <a href="#" onclick="showLogin(event)">Đã có tài khoản? Đăng nhập</a>
                 </div>
             </div>
 
-            <!-- Forgot Password Form -->
             <div class="auth-form" id="forgotPasswordForm" style="display: none;">
                 <h2>Quên mật khẩu</h2>
                 <p class="auth-subtitle">Nhập email để nhận link đặt lại mật khẩu</p>
-
                 <form onsubmit="handleForgotPassword(event)">
                     <div class="form-group">
                         <label for="forgotEmail">Email</label>
                         <input type="email" id="forgotEmail" placeholder="Nhập email đã đăng ký" required>
                     </div>
-
                     <button type="submit" class="btn-primary">Gửi link đặt lại</button>
                 </form>
-
                 <div class="auth-links">
                     <a href="#" onclick="showLogin(event)">Quay lại đăng nhập</a>
                 </div>
@@ -166,54 +152,43 @@
         </div>
     </div>
 
-    <!-- Comparison Toggle Button -->
     <button class="comparison-toggle" id="compareToggle" style="display: none;">
         So sánh <span id="compareCount">0</span>
     </button>
 
-    <!-- Comparison Tray -->
     <div class="comparison-tray" id="comparisonTray">
         <div class="comparison-header">
             <h3>So sánh sản phẩm</h3>
             <button class="comparison-close" id="comparisonClose">×</button>
         </div>
-
         <div class="comparison-content" id="comparisonContent">
             <p class="empty-compare">Chưa có sản phẩm nào để so sánh.</p>
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Right Floating Panels -->
     <aside class="right-floating-panels">
-        <!-- Mini Cart -->
         <div class="mini-panel cart-mini-panel" id="cartMiniPanel">
             <div class="mini-panel-header">
                 <h3>Giỏ hàng</h3>
                 <span id="cartMiniCount">0</span>
             </div>
-
             <div class="mini-panel-list" id="cartMiniList">
                 <p class="mini-empty">Giỏ hàng đang trống.</p>
             </div>
         </div>
-
-        <!-- Compare Mini Cart -->
         <div class="mini-panel compare-mini-panel" id="compareMiniCart">
             <div class="mini-panel-header">
                 <h3>So sánh sản phẩm</h3>
                 <span id="compareMiniCount">0</span>
             </div>
-
             <div class="mini-panel-list" id="compareMiniList">
                 <p class="mini-empty">Chưa chọn sản phẩm.</p>
             </div>
         </div>
     </aside>
 
-    <!-- Compare Modal -->
     <div class="compare-modal-overlay" id="compareModal">
         <div class="compare-modal" id="compareModalBox">
             <div class="compare-modal-layout">
@@ -227,7 +202,6 @@
                     <a href="#connectCompare">Kết nối</a>
                     <a href="#designCompare">Thiết kế, vật liệu</a>
                 </aside>
-
                 <div class="compare-modal-content">
                     <h2>So sánh điện thoại</h2>
                     <div id="compareModalContent"></div>
@@ -236,7 +210,184 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="site-footer">
+
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+
+                    <!-- Footer cột 1 -->
+                    <div class="footer-col footer-col--support">
+
+                        <!-- Tổng đài hỗ trợ miễn phí-->
+                        <section class="footer-section">
+                            <h3 class="footer-section-title" id="footer-support-title">Tổng đài hỗ trợ miễn phí</h3>
+                            <ul class="support-list">
+                                <li class="support-item">
+                                    <span class="support-label">Tư vấn mua hàng</span>
+                                    <span class="support-phone">1900 232 460</span>
+                                    <span class="support-hours">(8:00 – 21:30)</span>
+                                </li>
+                                <li class="support-item">
+                                    <span class="support-label">Hỗ trợ kỹ thuật</span>
+                                    <span class="support-phone">1900 232 464</span>
+                                    <span class="support-hours">(8:00 – 21:00)</span>
+                                </li>
+                                <li class="support-item">
+                                    <span class="support-label">Khiếu nại</span>
+                                    <span class="support-phone">1800.1062</span>
+                                    <span class="support-hours">(8:00 – 21:30)</span>
+                                </li>
+                            </ul>
+                        </section>
+
+                        <!-- Kết nối với TechMobile -->
+                        <section class="footer-section footer-section--social">
+                            <h3 class="footer-section-title" id="footer-social-title">Kết nối với TechMobile</h3>
+                            <div class="social-list">
+
+                                <a href="maintenance.html" class="social-link">
+                                    <span class="social-icon social-icon--fb">
+                                        <img src="./footer_icon/facebook_icon_8543190720.png">
+                                    </span>
+                                </a>
+
+                                <a href="maintenance.html" class="social-link">
+                                    <span class="social-icon social-icon--yt">
+                                        <img src="./footer_icon/youtube_icon_b492d61ba5.png">
+                                    </span>
+                                </a>
+
+                                <a href="maintenance.html" class="social-link">
+                                    <span class="social-icon social-icon--tt">
+                                        <img src="./footer_icon/tiktok_icon_faabbeeb61.png">
+                                    </span>
+                                </a>
+
+                                <a href="maintenance.html" class="social-link">
+                                    <span class="social-icon social-icon--zalo">
+                                        <img src="./footer_icon/zalo_icon_8cbef61812.png">
+                                    </span>
+                                </a>
+
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <!-- Footer cột 2 -->
+                    <div class="footer-col footer-col--about">
+                        
+                        <section class="footer-section footer-accordion">
+
+                            <!-- Static heading (cho desktop) -->
+                            <h3 class="footer-section-title footer-section-title--static">Về chúng tôi</h3>
+
+                            <!-- Accordion trigger (cho mobile) -->
+                            <button class="footer-accordion-trigger" id="footer-about-trigger" aria-expanded="false" aria-controls="footer-about-content">
+                                <span class="footer-section-title">Về chúng tôi</span>
+                                <span class="accordion-chevron" aria-hidden="true">›</span>
+                            </button>
+
+                            <ul class="footer-links footer-accordion-content" id="footer-about-content">
+                                <li><a href="maintenance.html">Giới thiệu công ty TechMobile</a></li>
+                                <li><a href="maintenance.html">Dự án Doanh nghiệp</a></li>
+                                <li><a href="maintenance.html">Tuyển dụng</a></li>
+                                <li><a href="maintenance.html">Hướng dẫn mua hàng &amp; thanh toán online</a></li>
+                                <li><a href="maintenance.html">Ủy quyền</a></li>
+                                <li><a href="maintenance.html">Hệ thống cửa hàng</a></li>
+                            </ul>
+
+                        </section>
+                    </div>
+
+                    <!-- Footer cột 3 -->
+                    <div class="footer-col footer-col--policy">
+                        <section class="footer-section footer-accordion">
+
+                            <!-- Static heading (cho desktop) -->
+                            <h3 class="footer-section-title footer-section-title--static">Dịch vụ và thông tin khác</h3>
+
+                            <!-- Accordion trigger (cho mobile) -->
+                            <button class="footer-accordion-trigger"
+                                    id="footer-policy-trigger"
+                                    aria-expanded="false"
+                                    aria-controls="footer-policy-content">
+                                <span class="footer-section-title">Dịch vụ và thông tin khác</span>
+                                <span class="accordion-chevron" aria-hidden="true">›</span>
+                            </button>
+
+                            <ul class="footer-links footer-accordion-content" id="footer-policy-content" >
+                                <li><a href="maintenance.html">Chính sách bảo hành</a></li>
+                                <li><a href="maintenance.html">Chính sách đổi trả</a></li>
+                                <li><a href="maintenance.html">Chính sách trả góp</a></li>
+                                <li><a href="maintenance.html">Chính sách giao hàng</a></li>
+                                <li><a href="maintenance.html">Điều khoản sử dụng</a></li>
+                                <li><a href="maintenance.html">Quy định hỗ trợ kỹ thuật &amp; sao lưu dữ liệu</a></li>
+                            </ul>
+
+                        </section>
+                    </div>
+
+                    <!-- Footer cột 4 -->
+                    <div class="footer-col footer-col--trust">
+
+                        <!-- Phương thức thanh toán -->
+                        <section class="footer-section">
+                            <h3 class="footer-section-title" id="footer-payment-title">Phương thức thanh toán</h3>
+                            
+                            <div class="payment-grid">
+                                <img src="./footer_icon/visa_icon_44fe6e15ed.png" class="payment-badge payment-badge--visa">
+                                <img src="./footer_icon/mastercard_icon_c75f94f6a5.png" class="payment-badge payment-badge--mc">
+                                <img src="./footer_icon/jcb_icon_214783937c.png" class="payment-badge payment-badge--jcb">
+                                <img src="./footer_icon/napas_icon_94d5330e3c.png" class="payment-badge payment-badge--napas">
+                                <img src="./footer_icon/vnpay_icon_f42045057d.png" class="payment-badge payment-badge--vnpay">
+                                <img src="footer_icon/momo_icon_baef21b5f7.png" class="payment-badge payment-badge--momo">
+                                <img src="footer_icon/zalopay_icon_26d64ea93f.png" class="payment-badge payment-badge--zalopay">
+                                <img src="./footer_icon/applepay_icon_cb6806a0d0.png" class="payment-badge payment-badge--applepay">
+                            </div>
+                        </section>
+
+                        <!-- Chứng nhận -->
+                        <section class="footer-section">
+                            <h3 class="footer-section-title" id="footer-cert-title">Chứng nhận</h3>
+                            <div class="trust-list">
+
+                                <a href="maintenance.html" class="trust-badge">
+                                    <img src="./footer_icon/Đã thông báo bộ công thương.png">
+                                </a>
+
+                                <a href="maintenance.html" class="trust-badge">
+                                    <img src="./footer_icon/dmca_icon_8fc6622bd5.png" height="32px">
+                                </a>
+
+                            </div>
+                        </section>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright-text">
+                    © 2026. Công Ty Cổ Phần Bán Lẻ Kỹ Thuật Số TechMobile.
+                    GPĐKKD số 0341309437 cấp tại Sở KH &amp; ĐT TP. Hà Nội.
+                    Địa chỉ văn phòng: 33 Đường Nghiêm Xuân Yêm, Phường Định Công,
+                    Thành phố Hà Nội, Việt Nam. Điện thoại: 028.4256.3321.
+                </p>
+            </div>
+        </div>
+
+    </footer>
+
     <script src="data.js"></script>
     <script src="main.js"></script>
+    <script src="footer.js"></script>
 </body>
+
 </html>
